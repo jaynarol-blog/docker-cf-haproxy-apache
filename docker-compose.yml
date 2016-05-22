@@ -1,0 +1,21 @@
+version: "2"
+services:
+
+
+    lb:
+      build: ./build/lb
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      ports:
+        - 80:80
+      links:
+        - php
+
+
+    php:
+      build: ./build/php
+      volumes:
+        - ./src:/var/www/html
+      restart: always
+      environment:
+        - VIRTUAL_HOST=*
